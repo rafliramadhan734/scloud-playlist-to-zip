@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: scloud-playlist-to-zip
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn app:app --workers 2 --threads 4 --timeout 180
+    envVars:
+      - key: SOUNDCLOUD_CLIENT_ID
+        sync: false
+      - key: SOUNDCLOUD_OAUTH_TOKEN
+        sync: false
+      - key: MAX_TRACKS_PER_ZIP
+        value: 50
+      - key: MAX_AUDIO_MB
+        value: 50
